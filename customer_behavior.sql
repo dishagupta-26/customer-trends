@@ -143,4 +143,27 @@ SELECT
     2) AS repeat_purchase_rate
 FROM customer_summary;
 
+-- Incentive / Commission Simulation
+-- commission logic
+SELECT 
+    customer_id,
+    total_revenue,
+    CASE 
+        WHEN total_revenue < 5000 THEN total_revenue * 0.02
+        WHEN total_revenue BETWEEN 5000 AND 20000 THEN total_revenue * 0.05
+        ELSE total_revenue * 0.08
+    END AS simulated_commission
+FROM customer_summary;
+
+-- subscription bonus rule
+SELECT 
+    customer_id,
+    total_revenue,
+    subscription_status,
+    CASE 
+        WHEN subscription_status = 'Yes' THEN 1000
+        ELSE 0
+    END AS subscription_bonus
+FROM customer_summary;
+
 
